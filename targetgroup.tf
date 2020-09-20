@@ -76,6 +76,12 @@ resource "aws_lb_listener_rule" "static" {
       values = ["/movies/"]
     }
    }
+
+  }
+
+  resource "aws_lb_listener_rule" "static1" {
+  listener_arn ="${aws_lb_listener.web.arn}" 
+
   action {
     type             = "forward"
     target_group_arn = "${aws_lb_target_group.stg.arn}"
@@ -90,7 +96,7 @@ resource "aws_lb_listener_rule" "static" {
   }
 
 
-resource "aws_route53_record" "www" {
+/* resource "aws_route53_record" "www" {
   zone_id = "Z0880630DSDGCDTP0JHD"
   name    = "www.pandrajucs.in"
   type    = "A"
@@ -100,4 +106,4 @@ resource "aws_route53_record" "www" {
     zone_id                = "${aws_lb.alb.zone_id}"
     evaluate_target_health = false
   }
-}
+} */

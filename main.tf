@@ -169,6 +169,9 @@ resource "aws_lb_target_group" "mtg" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = "vpc-03fce764d6d3fdd1f"
+   health_check {
+    path = "/movies"
+   }
 }
 
 resource "aws_lb_target_group" "stg" {
@@ -176,12 +179,16 @@ resource "aws_lb_target_group" "stg" {
   port     = 80
   protocol = "HTTP"
   vpc_id   = "vpc-03fce764d6d3fdd1f"
+  health_check {
+    path = "/shows"
+   }
 }
 
 resource "aws_lb" "alb" {
   name               = "aws-alb"
   internal           = false
   load_balancer_type = "application"
+  security_groups = ["${aws_security_group.allow_all.id}"]
   subnets            = ["subnet-034250c45e4a08fbf","subnet-0d47b4ff30b766a68","subnet-0e603ab3ebf20d410"]
 
 } 
